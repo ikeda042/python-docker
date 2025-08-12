@@ -4,6 +4,7 @@ from pathlib import Path
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
 from fastapi.responses import StreamingResponse
+from urllib.parse import quote
 
 from .crud import STORAGE_DIR, iter_file, list_files, save_upload_file
 
@@ -29,5 +30,8 @@ async def download_file(filename: str) -> StreamingResponse:
     file_path = STORAGE_DIR / filename
     if not file_path.exists():
         raise HTTPException(status_code=404, detail="File not found")
-    headers = {"Content-Disposition": f"attachment; filename={filename}"}
+    encoded_filename = quote(filename)
+    headers = {
+        "Content-Disposition": f"attachment; filename*=UTF-8''{encoded_filename}"
+    }
     return StreamingResponse(iter_file(file_path), headers=headers)
