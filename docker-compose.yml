@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: fastapi-api
+    ports:
+      - "8000:8000"
+    # 開発中はホットリロード用にアプリディレクトリをマウント
+    volumes:
+      - ./app:/app/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    # dev 用：ホットリロード
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    restart: unless-stopped

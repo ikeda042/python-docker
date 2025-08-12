@@ -1,0 +1,22 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+.env
+.env.*
+
+# VCS
+.git
+.gitignore
+
+# Editor
+.vscode/
+.idea/
+
+# Devcontainer and docker metadata
+Dockerfile*
+docker-compose*.yml
+*.swp
